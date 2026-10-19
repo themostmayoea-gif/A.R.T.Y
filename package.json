@@ -1,0 +1,23 @@
+{
+  "name": "arty",
+  "productName": "ARTY",
+  "version": "1.0.0",
+  "description": "A.R.T.Y - assistente pessoal de IA no estilo JARVIS",
+  "main": "src/main/main.js",
+  "author": "A.R.T.Y",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "dist": "electron-builder --win nsis"
+  },
+  "dependencies": {
+    "msedge-tts": "^2.1.0",
+    "systeminformation": "^5.33.16"
+  },
+  "devDependencies": {
+    "electron": "^38.8.6",
+    "electron-builder": "^26.15.3"
+  }
+}

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none'">
+<title>A.R.T.Y</title>
+<link rel="stylesheet" href="hud.css">
+</head>
+<body class="iniciando">
+
+<!-- Tela de inicialização -->
+<div id="boot">
+  <div class="boot-core">
+    <img class="boot-floco" src="../../assets/ARTY_floco.png" alt="">
+    <svg class="boot-anel" viewBox="0 0 200 200"><circle cx="100" cy="100" r="92"/></svg>
+  </div>
+  <div class="boot-titulo">A.R.T.Y</div>
+  <div class="boot-linhas" id="bootLinhas"></div>
+  <div class="boot-barra"><i id="bootBarra"></i></div>
+</div>
+
+<div id="app">
+  <header class="titulo-janela">
+    <div class="marca">
+      <img src="../../assets/ARTY_floco.png" alt="">
+      <b>A.R.T.Y</b>
+      <span class="sub">ASSISTENTE PESSOAL // SISTEMA ONLINE</span>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="botoes-janela">
+      <button class="bj" id="btNova" title="Nova conversa"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 1 2.3 5.7M4 18v-6h6"/></svg></button>
+      <button class="bj" id="btConfig" title="Abrir config.json"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></button>
+      <button class="bj" id="btRecarregar" title="Recarregar config"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 6v6h-6"/></svg></button>
+      <span class="sep"></span>
+      <button class="bj" id="btMin" title="Minimizar"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+      <button class="bj" id="btMax" title="Maximizar"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14"/></svg></button>
+      <button class="bj fechar" id="btFechar" title="Esconder na bandeja"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+  </header>
+
+  <main class="grade">
+    <!-- COLUNA ESQUERDA -->
+    <section class="coluna">
+      <div class="painel" id="pDia">
+        <div class="moldura"><div class="miolo">
+          <h2><i></i>DIA <span class="cod">SYS.01</span></h2>
+          <div class="relogio"><span id="hora">--:--</span><small id="seg">--</small></div>
+          <div class="dia-semana" id="diaSemana">—</div>
+          <div class="data" id="dataTxt">—</div>
+          <div class="calendario" id="calendario"></div>
+        </div></div>
+      </div>
+
+      <div class="painel" id="pClima">
+        <div class="moldura"><div class="miolo">
+          <h2><i></i>CLIMA <span class="cod" id="climaCidade">—</span></h2>
+          <div class="clima-agora">
+            <div class="clima-icone" id="climaIcone"></div>
+            <div>
+              <div class="clima-temp"><span id="climaTemp">--</span><sup>°C</sup></div>
+              <div class="clima-cond" id="climaCond">carregando...</div>
+            </div>
+            <div class="clima-extra">
+              <div><b>MÁX</b> <span id="climaMax">--</span>°</div>
+              <div><b>MÍN</b> <span id="climaMin">--</span>°</div>
+              <div><b>UMID</b> <span id="climaUmid">--</span>%</div>
+              <div><b>VENTO</b> <span id="climaVento">--</span> km/h</div>
+            </div>
+          </div>
+          <div class="previsao" id="previsao"></div>
+        </div></div>
+      </div>
+
+      <div class="painel cresce" id="pSistema">
+        <div class="moldura"><div class="miolo">
+          <h2><i></i>SISTEMA <span class="cod" id="nomePc">—</span></h2>
+          <div class="medidores">
+            <div class="medidor" id="mCpu"></div>
+            <div class="medidor" id="mRam"></div>
+            <div class="medidor" id="mDisco"></div>
+            <div class="medidor" id="mBateria"></div>
+          </div>
+          <div class="hist-rot"><span>CARGA DA CPU</span><span>últimos 96 s</span></div>
+          <div class="cpu-hist" id="cpuHist"></div>
+          <div class="linha-sys"><span>TEMPO LIGADO</span><b id="uptime">--</b></div>
+          <div class="linha-sys"><span>MEMÓRIA</span><b id="ramTxt">--</b></div>
+          <div class="linha-sys"><span>DISCO LIVRE</span><b id="discoTxt">--</b></div>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- CENTRO -->
+    <section class="centro">
+      <div class="core" id="core" data-estado="aguardando">
+        <svg class="aneis" viewBox="-300 -300 600 600" id="aneis">
+          <defs>
+            <radialGradient id="gNucleo"><stop offset="0" stop-color="#00e5ff" stop-opacity=".35"/><stop offset=".55" stop-color="#00e5ff" stop-opacity=".06"/><stop offset="1" stop-color="#00e5ff" stop-opacity="0"/></radialGradient>
+          </defs>
+          <circle r="290" fill="url(#gNucleo)" class="halo"/>
+          <g class="anel" data-vel="0.6"><circle r="282" class="tracejado-fino"/></g>
+          <g class="anel" data-vel="-1.1" id="anelMarcas"></g>
+          <g class="anel" data-vel="1.6"><circle r="236" class="arco-a"/><circle r="236" class="arco-b"/></g>
+          <g class="anel" data-vel="-2.3"><circle r="216" class="tracejado-grosso"/></g>
+          <g class="anel" data-vel="3.2"><circle r="198" class="arco-c"/></g>
+          <g class="anel" data-vel="-0.8" id="anelHex"></g>
+          <circle r="170" class="anel-fixo"/>
+          <g class="anel varredura" data-vel="5"><path d="M0 0 L0 -282 A282 282 0 0 1 120 -255 Z" class="cone"/></g>
+        </svg>
+        <img class="floco" id="floco" src="../../assets/ARTY_floco.png" alt="A.R.T.Y">
+        <div class="estado-txt" id="estadoTxt">AGUARDANDO</div>
+        <div class="dica-voz" id="dicaVoz">diga "Arty" ou clique no microfone</div>
+      </div>
+
+      <div class="painel chat-painel">
+        <div class="moldura"><div class="miolo">
+          <h2><i></i>CONVERSA <span class="cod" id="modoCerebro">—</span></h2>
+          <div class="chat" id="chat"></div>
+          <form class="entrada" id="formEntrada" autocomplete="off">
+            <span class="prompt">&gt;</span>
+            <input id="campo" placeholder="Digite e aperte Enter... (Ctrl+Espaço ou /)" maxlength="500">
+            <button type="button" class="bt" id="btMic" title="Falar agora (Ctrl+Alt+A)">
+              <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg>
+            </button>
+            <button type="button" class="bt" id="btMudo" title="Responder falando / só texto">
+              <svg viewBox="0 0 24 24" class="ic-som"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg>
+              <svg viewBox="0 0 24 24" class="ic-mudo"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9l6 6M22 9l-6 6"/></svg>
+            </button>
+            <button type="button" class="bt texto" id="btEscuta" title="Modo escuta (palavra de ativação)">ESCUTA <b id="escutaTxt">ON</b></button>
+          </form>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- COLUNA DIREITA -->
+    <section class="coluna">
+      <div class="painel cresce" id="pPlanos">
+        <div class="moldura"><div class="miolo">
+          <h2><i></i>PLANOS DE HOJE <span class="cod" id="planosCont">0/0</span></h2>
+          <ul class="lista" id="listaPlanos"></ul>
+          <form class="add" id="formPlano" autocomplete="off"><span>+</span><input id="novoPlano" placeholder="novo plano pra hoje" maxlength="120"></form>
+        </div></div>
+      </div>
+
+      <div class="painel cresce" id="pObjetivos">
+        <div class="moldura"><div class="miolo">
+          <h2><i></i>OBJETIVOS <span class="cod">PROGRESS</span></h2>
+          <ul class="lista objetivos" id="listaObjetivos"></ul>
+          <form class="add" id="formObjetivo" autocomplete="off"><span>+</span><input id="novoObjetivo" placeholder="novo objetivo" maxlength="80"></form>
+        </div></div>
+      </div>
+
+      <div class="painel" id="pRede">
+        <div class="moldura"><div class="miolo">
+          <h2><i></i>REDE <span class="cod"><em class="down">▼ <span id="redeDown">0</span></em> <em class="up">▲ <span id="redeUp">0</span></em></span></h2>
+          <canvas id="graficoRede" height="70"></canvas>
+        </div></div>
+      </div>
+
+      <div class="painel" id="pLog">
+        <div class="moldura"><div class="miolo">
+          <h2><i></i>LOG <span class="cod">EVENTOS</span></h2>
+          <ul class="log" id="log"></ul>
+        </div></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="voz.js"></script>
+<script src="hud.js"></script>
+</body>
+</html>
