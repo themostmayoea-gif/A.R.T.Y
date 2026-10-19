@@ -320,9 +320,11 @@ async function sincronizarMic() {
   if (app.ligandoMic) return;
   try {
     app.ligandoMic = true;
-    if (precisa && !Voz.ligado && (!app.micFalhou || app.direto)) await Voz.ligar();
+    if (precisa && !Voz.ligado && (!app.micFalhou || app.direto)) {
+      await Voz.ligar();
+      app.micFalhou = false;
+    }
     if (!precisa && Voz.ligado) Voz.desligar();
-    app.micFalhou = false;
   } catch (e) {
     // avisa uma vez só; tenta de novo quando clicar no microfone ou ligar a escuta
     if (!app.micFalhou) addMsg('sistema', 'não consegui acessar o microfone: ' + e.message, 'erro');

@@ -10,7 +10,7 @@
   "scripts": {
     "start": "electron .",
     "test": "node --test test/*.test.js",
-    "dist": "electron-builder --win nsis"
+    "dist": "electron-builder --win nsis --publish never"
   },
   "dependencies": {
     "msedge-tts": "^2.1.0",
@@ -19,5 +19,43 @@
   "devDependencies": {
     "electron": "^38.8.6",
     "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.arty.assistente",
+    "productName": "ARTY",
+    "executableName": "ARTY",
+    "copyright": "A.R.T.Y",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/ARTY.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "A.R.T.Y",
+      "artifactName": "Setup_ARTY.exe",
+      "installerIcon": "assets/ARTY.ico",
+      "uninstallerIcon": "assets/ARTY.ico",
+      "uninstallDisplayName": "A.R.T.Y",
+      "runAfterFinish": true
+    }
   }
 }

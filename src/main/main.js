@@ -227,7 +227,7 @@ function configurarIpc() {
     try {
       return { texto: await voz.transcrever(Buffer.from(pcm), cfg.escuta.idioma) };
     } catch (e) {
-      return { erro: e.message };
+      return { erro: /fetch failed|abort/i.test(e.message) ? 'sem conexão com o serviço de voz (internet ok?)' : e.message };
     }
   });
 
