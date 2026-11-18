@@ -39,7 +39,7 @@ local HubConfig = {
 			MaxPlayers = 1,
 			Reserved = true,
 			Color = Color3.fromRGB(80, 200, 255),
-			Position = Vector3.new(-30, 0.5, -40),
+			Position = Vector3.new(-30, 0.7, -40),
 		},
 		{
 			Name = "Grupo",
@@ -47,7 +47,7 @@ local HubConfig = {
 			MaxPlayers = 4,
 			Reserved = true,
 			Color = Color3.fromRGB(120, 255, 140),
-			Position = Vector3.new(0, 0.5, -40),
+			Position = Vector3.new(0, 0.7, -40),
 		},
 		{
 			Name = "Publico",
@@ -55,7 +55,7 @@ local HubConfig = {
 			MaxPlayers = 8,
 			Reserved = false,
 			Color = Color3.fromRGB(255, 200, 80),
-			Position = Vector3.new(30, 0.5, -40),
+			Position = Vector3.new(30, 0.7, -40),
 		},
 	} :: { PortalConfig },
 }

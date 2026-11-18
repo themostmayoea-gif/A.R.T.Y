@@ -30,3 +30,26 @@ src/client/HubClient.client.luau -> interface da fila e tela de carregamento
 > O teleporte **não funciona no Studio**. Teste num servidor publicado.
 
 Sem Rojo: crie os scripts manualmente com os mesmos nomes. `HubConfig` vai como ModuleScript em `ReplicatedStorage/Shared`, `HubServer` (Script) e `TeleportManager` (ModuleScript) em `ServerScriptService/Server`, e `HubClient` (LocalScript) em `StarterPlayer/StarterPlayerScripts/Client`.
+
+## Mapa do Hub (Blender)
+
+![Prévia do mapa](blender/preview.png)
+
+O mapa é gerado pelo script `blender/build_hub_map.py`, que também cria a textura de stud (procedural e original) em várias cores. Tem ilha, água, praça de spawn, caminho de areia, praça com os 3 arcos dos portais, placa, postes de luz, píer de pesca, cabana, árvores e pedras.
+
+Arquivos gerados:
+- `blender/hub_map.fbx`: para importar no Roblox (texturas embutidas)
+- `blender/hub_map.blend`: para editar no Blender
+- `blender/textures/*.png`: as texturas separadas, caso precise subir manualmente
+
+Para gerar de novo depois de editar o script:
+```
+blender -b -P blender/build_hub_map.py -- blender
+```
+
+### Importar no Roblox
+1. No Studio, abra o lugar do **Hub** e vá em **Arquivo > Importar 3D**. Escolha `hub_map.fbx`.
+2. Nas opções: unidade **Stud**, marque **Insert Using Scene Position** e **Anchored**, e desmarque **Merge Meshes**.
+3. No modelo importado: na `Agua`, use `CanCollide = false` e `Transparency = 0.3`. Nas `Luz*`, use `Material = Neon`. Na `Ilha`, use `CollisionFidelity = Box`.
+4. Coloque um **SpawnLocation** em `(0, 1, 20)`, em cima do círculo branco.
+5. Os portais do script do servidor aparecem sozinhos dentro dos arcos, em `(-30/0/30, 0.7, -40)`.
